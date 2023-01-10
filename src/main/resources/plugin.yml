@@ -1,0 +1,6 @@
+name: PixelTeams
+version: '${project.version}'
+main: me.yukinox.pixelteams.PixelTeams
+commands:
+  team:
+    description: 'Team commands'
