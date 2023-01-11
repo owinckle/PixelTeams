@@ -74,6 +74,9 @@ public class Executor implements CommandExecutor {
                 case "chat":
                     ToggleChat toggleChat = new ToggleChat(plugin);
                     return toggleChat.execute(player);
+                case "reload":
+                    Reload reload = new Reload(plugin);
+                    return reload.execute(player);
             }
         }
         return true;

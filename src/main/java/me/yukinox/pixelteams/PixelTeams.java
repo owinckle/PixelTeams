@@ -23,7 +23,7 @@ public final class PixelTeams extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        saveDefaultConfig();
+        // saveDefaultConfig();
         config = getConfig();
 
         teams = new HashMap<String, List<String>>();
@@ -59,7 +59,7 @@ public final class PixelTeams extends JavaPlugin implements Listener {
         return null;
     }
 
-    private void loadTeams() {
+    public void loadTeams() {
         teams.clear();
         Set<String> teamNames = teamsConfig.getKeys(false);
         for (String teamName : teamNames) {
