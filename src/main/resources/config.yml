@@ -1,0 +1,51 @@
+notOwner: "You have to be the owner of the team to do that."
+notInTeam: "You are not in a team."
+alreadyHaveTeam: "You're already in a team."
+teamNotExist: "This team doesn't exist."
+playerNotMember: "{player} is not a member of your team."
+prefix: "[{team}] {group} {player}"
+
+create:
+    usage: "Usage: /team create <name>"
+    success: "Team {team} has been created."
+    alreadyExists: "This name is taken."
+
+invite:
+    usage: "Usage: /team invite <player>"
+    senderSuccess: "{player} has been invited to your team."
+    receiverSuccess: "You've been invited to {team}."
+    alreadyMember: "This player is already a member of your team."
+    alreadyInvited: "This player has already been invited to your team."
+
+join:
+    usage: "Usage: /team join <team>"
+    success: "You have joined team {team}."
+    notInvited: "You were not invited to this team."
+
+leave:
+    playerSuccess: "You left {team}"
+    teamMessage: "{player} left the team."
+
+kick:
+    usage: "Usage: /team kick <player>"
+    teamMessage: "{player} has been kicked."
+    kickMessage: "You have been kicked form {team}."
+
+disband:
+    success: "Your team has been disbanded"
+
+owner:
+    usage: "Usage: /team kick <player>"
+    success: "Team ownership transferred to {player}."
+    newOwnerSuccess: "{player} transferred the team's ownership to you."
+
+show:
+    title: "Member of {team}: "
+
+friendlyFire:
+    messageEnabled: true
+    message: "Friendly fire is disabled."
+
+chat:
+    enabled: "Switched to team chat"
+    disabled: "Switch to public chat"

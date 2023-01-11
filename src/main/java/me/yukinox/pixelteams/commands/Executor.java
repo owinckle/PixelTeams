@@ -7,10 +7,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class TeamCommand implements CommandExecutor {
-    private PixelTeams plugin;
+public class Executor implements CommandExecutor {
+    PixelTeams plugin;
 
-    public TeamCommand(PixelTeams plugin) {
+    public Executor(PixelTeams plugin) {
         this.plugin = plugin;
     }
 
@@ -29,37 +29,53 @@ public class TeamCommand implements CommandExecutor {
                     return true;
                 case "create":
                     if (args.length != 2) {
-                        player.sendMessage(ChatColor.RED + "Usage: /team create <name>");
+                        player.sendMessage(ChatColor.RED + plugin.config.getString("create.usage"));
                         return false;
                     }
-                    return plugin.createTeam(args[1], player);
+                    Create create = new Create(plugin);
+                    return create.execute(player, args[1]);
                 case "disband":
-                    return plugin.disbandTeam(player);
+                    Disband disband = new Disband(plugin);
+                    return disband.execute(player);
                 case "show":
-                    return plugin.showTeam(player);
+                    Show show = new Show(plugin);
+                    return show.execute(player);
                 case "invite":
                     if (args.length != 2) {
-                        player.sendMessage(ChatColor.RED + "Usage: /team invite <player>");
+                        player.sendMessage(ChatColor.RED + plugin.config.getString("invite.usage"));
                         return false;
                     }
-                    return plugin.invite(player, args[1]);
+                    Invite invite = new Invite(plugin);
+                    return invite.execute(player, args[1]);
                 case "join":
                     if (args.length != 2) {
-                        player.sendMessage(ChatColor.RED + "Usage: /team join <name>");
+                        player.sendMessage(ChatColor.RED + plugin.config.getString("join.usage"));
                         return false;
                     }
-                    return plugin.join(player, args[1]);
+                    Join join = new Join(plugin);
+                    return join.execute(player, args[1]);
                 case "leave":
-                    return plugin.leave(player);
+                    Leave leave = new Leave(plugin);
+                    return leave.execute(player);
                 case "kick":
                     if (args.length != 2) {
-                        player.sendMessage(ChatColor.RED + "Usage: /team kick <player>");
+                        player.sendMessage(ChatColor.RED + plugin.config.getString("kick.usage"));
                         return false;
                     }
-                    return plugin.kick(player, args[1]);
+                    Kick kick = new Kick(plugin);
+                    return kick.execute(player, args[1]);
+                case "owner":
+                    if (args.length != 2) {
+                        player.sendMessage(ChatColor.RED + plugin.config.getString("owner.usage"));
+                        return false;
+                    }
+                    Owner owner = new Owner(plugin);
+                    return owner.execute(player, args[1]);
+                case "chat":
+                    ToggleChat toggleChat = new ToggleChat(plugin);
+                    return toggleChat.execute(player);
             }
         }
-
         return true;
     }
 
@@ -72,5 +88,7 @@ public class TeamCommand implements CommandExecutor {
         player.sendMessage(ChatColor.GOLD + "/team leave - Leaves your current team.");
         player.sendMessage(ChatColor.GOLD + "/team disband - Disbands your current team.");
         player.sendMessage(ChatColor.GOLD + "/team show - Shows all the members of your current team.");
+        player.sendMessage(ChatColor.GOLD + "/team owner - Transfer the ownership of the team.");
+        player.sendMessage(ChatColor.GOLD + "/team chat - Switch between team and public chat.");
     }
 }
