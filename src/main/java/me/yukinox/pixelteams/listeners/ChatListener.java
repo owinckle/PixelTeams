@@ -10,15 +10,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import me.yukinox.pixelteams.PixelTeams;
-import net.milkbowl.vault.chat.Chat;
 
 public class ChatListener implements Listener {
 	private PixelTeams plugin;
-	private Chat vaultChat;
 
 	public ChatListener(PixelTeams plugin) {
 		this.plugin = plugin;
-		this.vaultChat = (Chat) plugin.getServer().getServicesManager().getRegistration(Chat.class).getProvider();
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
@@ -26,8 +23,8 @@ public class ChatListener implements Listener {
 		Player player = event.getPlayer();
 		String teamName = plugin.getTeam(player);
 		String message = event.getMessage();
-		String groupPrefix = vaultChat.getPlayerPrefix(player);
 		String newFormat;
+		String displayName = player.getDisplayName();
 
 		if (teamName != null) {
 			Boolean inTeamChat = false;
@@ -39,8 +36,7 @@ public class ChatListener implements Listener {
 				message = ChatColor.GREEN + message;
 			}
 
-			newFormat = messageFormat.replace("{team}", teamName).replace("{group}", groupPrefix)
-					.replace("{player}", player.getName())
+			newFormat = messageFormat.replace("{team}", teamName).replace("{player}", displayName)
 					+ " §f\u00BB " + message;
 
 			if (inTeamChat) {
@@ -48,8 +44,8 @@ public class ChatListener implements Listener {
 				for (String member : members) {
 					Player memberPlayer = plugin.getServer().getPlayer(member);
 					if (memberPlayer != null) {
-						newFormat = messageFormat.replace("{team}", teamName).replace("{group}", groupPrefix)
-								.replace("{player}", player.getDisplayName())
+						newFormat = messageFormat.replace("{team}", teamName).replace("{player}",
+								displayName)
 								+ " §f\u00BB " + message;
 						memberPlayer.sendMessage(ChatColor.translateAlternateColorCodes('&', newFormat));
 					}
@@ -58,7 +54,7 @@ public class ChatListener implements Listener {
 				return;
 			}
 		} else {
-			newFormat = groupPrefix + " " + player.getDisplayName() + " §f\u00BB " + message;
+			newFormat = displayName + " §f\u00BB " + message;
 		}
 
 		event.setFormat(ChatColor.translateAlternateColorCodes('&', newFormat));
