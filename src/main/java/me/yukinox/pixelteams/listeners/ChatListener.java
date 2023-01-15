@@ -49,7 +49,7 @@ public class ChatListener implements Listener {
 					Player memberPlayer = plugin.getServer().getPlayer(member);
 					if (memberPlayer != null) {
 						newFormat = messageFormat.replace("{team}", teamName).replace("{group}", groupPrefix)
-								.replace("{player}", player.getName())
+								.replace("{player}", player.getDisplayName())
 								+ " §f\u00BB " + message;
 						memberPlayer.sendMessage(ChatColor.translateAlternateColorCodes('&', newFormat));
 					}
@@ -58,7 +58,7 @@ public class ChatListener implements Listener {
 				return;
 			}
 		} else {
-			newFormat = groupPrefix + " " + player.getName() + " §f\u00BB " + message;
+			newFormat = groupPrefix + " " + player.getDisplayName() + " §f\u00BB " + message;
 		}
 
 		event.setFormat(ChatColor.translateAlternateColorCodes('&', newFormat));
